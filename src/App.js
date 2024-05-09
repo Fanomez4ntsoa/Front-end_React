@@ -26,25 +26,25 @@ const App = () => {
             <main className="py-3">
                 <Container>
                     <Routes>
-                        <Route path='/order/:id' component={OrderPage} />
-                        <Route path='/shipping' component={ShippingPage} />
-                        <Route path='/payment' component={PaymentPage} />
-                        <Route path='/placeorder' component={PlaceOrderPage} />
-                        <Route path='/login' component={LoginPage} />
-                        <Route path='register' component={RegisterPage} />
-                        <Route path='/profile' component={ProfilePage} />
-                        <Route path='/product/:id' component={ProductPage} />
-                        <Route path='/cart/:id?' component={CartPage} />
-                        <Route path='/admin/userlist' component={UserListPage} />
-                        <Route path='/admin/user/:id/edit' component={UserEditPage} />
-                        <Route path='/admin/productlist' component={ProductListPage} />
-                        <Route path='/admin/productlist/:pageNumber' component={ProductListPage} />
-                        <Route path='/admin/product/:id/edit' component={ProductEditPage} />
-                        <Route path='/admin/orderlist' component={OrderListPage} />
-                        <Route path='/search/:keyword' component={HomePage} exact />
-                        <Route path='/page/:pageNumber' component={HomePage} exact />
-                        <Route path='/search/:keyword/page/:pageNumber' component={HomePage} exact />
-                        <Route path='/' component={HomePage} exact />
+                        <Route path='/login' element={<LoginPage />} />
+                        <Route path='/register' element={<RegisterPage />} />
+                        <Route path='/order/:id' element={<OrderPage />} />
+                        <Route path='/shipping' element={<ShippingPage />} />
+                        <Route path='/payment' element={<PaymentPage />} />
+                        <Route path='/placeorder' element={<PlaceOrderPage />} />
+                        <Route path='/profile' element={<ProfilePage />} />
+                        <Route path='/product/:id' element={<ProductPage />} />
+                        <Route path='/cart/:id?' element={<CartPage />} />
+                        <Route path='/admin/userlist' element={<UserListPage />} />
+                        <Route path='/admin/user/:id/edit' element={<UserEditPage />} />
+                        <Route path='/admin/productlist' element={<ProductListPage />} />
+                        <Route path='/admin/productlist/:pageNumber' element={<ProductListPage />} />
+                        <Route path='/admin/product/:id/edit' element={<ProductEditPage />} />
+                        <Route path='/admin/orderlist' element={<OrderListPage />} />
+                        <Route path='/search/:keyword' element={<HomePage />} exact />
+                        <Route path='/page/:pageNumber' element={<HomePage />} exact />
+                        <Route path='/search/:keyword/page/:pageNumber' element={<HomePage />} exact />
+                        <Route path='/' element={<HomePage />} exact />
                     </Routes>
                 </Container>
             </main>
