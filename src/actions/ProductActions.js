@@ -6,7 +6,7 @@ export const listProducts = (keyword = '', pageNumber = '') => async ( dispatch 
         dispatch({ type: productConstants.PRODUCT_LIST_REQUEST })
 
         const { data } = await axios.get(
-            `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+            `http://localhost:4000/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
         )
 
         dispatch({
@@ -28,7 +28,7 @@ export const listProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: productConstants.PRODUCT_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`/api/products/${id}`)
+        const { data } = await axios.get(`${process.env.API_URL}/products/${id}`)
 
         dispatch({
             type: productConstants.PRODUCT_DETAILS_SUCCESS,
@@ -61,7 +61,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             },
         }
 
-        await axios.delete(`/api/products/${id}`, config)
+        await axios.delete(`${process.env.API_URL}/products/${id}`, config)
 
         dispatch({
             type: productConstants.PRODUCT_DELETE_SUCCESS,
@@ -93,7 +93,7 @@ export const createProduct = () => async (dispatch, getState) => {
             },
         }
 
-        const { data } = await axios.post(`/api/products`, {}, config)
+        const { data } = await axios.post(`${process.env.API_URL}/products`, {}, config)
 
         dispatch({
             type: productConstants.PRODUCT_CREATE_SUCCESS,
@@ -128,7 +128,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.put(
-            `/api/products/${product._id}`,
+            `${process.env.API_URL}/products/${product._id}`,
             product,
             config
         )
@@ -165,7 +165,7 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
             },
         }
 
-        await axios.post(`/api/products/${productId}/reviews`, review, config)
+        await axios.post(`${process.env.API_URL}/products/${productId}/reviews`, review, config)
 
         dispatch({
             type: productConstants.PRODUCT_CREATE_REVIEW_SUCCESS,
@@ -185,7 +185,7 @@ export const listTopProducts = () => async (dispatch) => {
     try {
         dispatch({ type: productConstants.PRODUCT_TOP_REQUEST })
 
-        const { data } = await axios.get(`/api/products/top`)
+        const { data } = await axios.get(`http://localhost:4000/api/products/top`)
 
         dispatch({
             type: productConstants.PRODUCT_TOP_SUCCESS,
