@@ -20,11 +20,9 @@ const HomePage = ({ match }) => {
     const productList = useSelector((state) => state.productList);
     const { loading, error, products, page, pages } = productList;
     
-    // console.log(productList);
-
     useEffect(() => {
-        dispatch(listProducts(keyword, pageNumber))
-    }, [dispatch, keyword, pageNumber ])
+            dispatch(listProducts(keyword, pageNumber))
+    }, [dispatch, keyword, pageNumber])
 
     return (
         <>
@@ -44,11 +42,16 @@ const HomePage = ({ match }) => {
             ) : (
                 <>
                     <Row>
-                        {Array.isArray(products) && products.map((product) => (
-                            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                                <Product product={product} />
-                            </Col>
-                        ))}
+                        {Array.isArray(products) && products.length > 0 ? (
+                            products.map((product) => (
+                                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                    <Product product={product} />
+                                </Col>
+                            ))
+                        ) : (
+                            <Message variant='info'>No products found</Message>
+                        )
+                    }
                     </Row>
                     <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''}/>
                 </>

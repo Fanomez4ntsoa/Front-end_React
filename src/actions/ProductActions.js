@@ -11,7 +11,7 @@ export const listProducts = (keyword = '', pageNumber = '') => async ( dispatch 
 
         dispatch({
             type: productConstants.PRODUCT_LIST_SUCCESS,
-            payload: data,
+            payload: data
         })
     } catch (error) {
         dispatch({
