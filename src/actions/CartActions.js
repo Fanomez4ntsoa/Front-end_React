@@ -2,21 +2,27 @@ import axios from 'axios';
 import * as cartConstants from '../constants/CartConstant';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-    const { data } = await axios.get(`http://localhost:4000/api/products/${id}`)
+    try {
+        const { data } = await axios.get(`http://localhost:4000/api/products/${id}`)
+        console.log(data);
+        
+        dispatch({
+            type: cartConstants.CART_ADD_ITEM,
+            payload: {
+                product: data._id,
+                name: data.name,
+                image: data.image,
+                price: data.price,
+                countInStock: data.countInStock,
+                qty,
+            },
+        })
 
-    dispatch({
-        type: cartConstants.CART_ADD_ITEM,
-        payload: {
-        product: data._id,
-        name: data.name,
-        image: data.image,
-        price: data.price,
-        countInStock: data.countInStock,
-        qty,
-        },
-    })
+        localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 
-    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+    } catch (error) {
+        console.error('Error fetching product details :', error);
+    }
 }
 
 export const removeFromCart = (id) => (dispatch, getState) => {

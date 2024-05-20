@@ -5,9 +5,9 @@ import FormContainer from '../components/FormContainer'
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const LoginPage = ({ location, history }) => {
+const LoginPage = () => {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
 
@@ -16,13 +16,16 @@ const LoginPage = ({ location, history }) => {
     const userLogin = useSelector((state) => state.userLogin);
     const { loading, error, userInfo } = userLogin;
 
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const redirect = location && location.search ? location.search.split('=')[1] : '/';
 
     useEffect(() => {
         if(userInfo) {
-            history.push(redirect)
+            navigate(redirect)
         }
-    }, [history, userInfo, redirect])
+    }, [navigate, userInfo, redirect])
 
     const submitHandler = (e) => {
         e.preventDefault()

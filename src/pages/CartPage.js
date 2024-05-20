@@ -2,32 +2,36 @@ import React, { useEffect } from 'react';
 import { addToCart, removeFromCart } from '../actions/CartActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 
-const CartPage = ({ location, history }) => {
-    const productId = useParams();
+const CartPage = () => {
+    const { productId } = useParams();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
     const dispatch = useDispatch();
-
+    
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
 
     useEffect(() => {
-    if (productId) {
-        dispatch(addToCart(productId, qty))
-    }
+        if (productId) {
+            dispatch(addToCart(productId, qty))
+        }
     }, [dispatch, productId, qty])
 
-    const removeFromCartHandler = (id) => {
-        dispatch(removeFromCart(id))
+    const removeFromCartHandler = (productId) => {
+        dispatch(removeFromCart(productId))
     }
 
     const checkoutHandler = () => {
-        history.push('/login?redirect=shipping')
+        navigate('/login?redirect=shipping')
     }
+
+    console.log(cart);
 
     return (
         <Row>
