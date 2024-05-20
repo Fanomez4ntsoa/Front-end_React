@@ -16,6 +16,7 @@ const ProductCarousel = () => {
         if(!products || !products.data || products.data.length === 0) {
             dispatch(listTopProducts())
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     return loading ? (

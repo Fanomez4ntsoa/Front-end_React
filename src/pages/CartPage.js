@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { addToCart, removeFromCart } from '../actions/CartActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 
-const CartPage = ({ match, location, history }) => {
-    const productId = match.params.id;
+const CartPage = ({ location, history }) => {
+    const productId = useParams();
 
     const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 

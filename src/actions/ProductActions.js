@@ -28,8 +28,8 @@ export const listProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: productConstants.PRODUCT_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`${process.env.API_URL}/products/${id}`)
-
+        const { data } = await axios.get(`http://localhost:4000/api/products/${id}`)
+        
         dispatch({
             type: productConstants.PRODUCT_DETAILS_SUCCESS,
             payload: data,
@@ -61,7 +61,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             },
         }
 
-        await axios.delete(`${process.env.API_URL}/products/${id}`, config)
+        await axios.delete(`http://localhost:4000/api/products/${id}`, config)
 
         dispatch({
             type: productConstants.PRODUCT_DELETE_SUCCESS,
@@ -93,7 +93,7 @@ export const createProduct = () => async (dispatch, getState) => {
             },
         }
 
-        const { data } = await axios.post(`${process.env.API_URL}/products`, {}, config)
+        const { data } = await axios.post(`http://localhost:4000/api/products`, {}, config)
 
         dispatch({
             type: productConstants.PRODUCT_CREATE_SUCCESS,
@@ -128,7 +128,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.put(
-            `${process.env.API_URL}/products/${product._id}`,
+            `http://localhost:4000/api/products/${product._id}`,
             product,
             config
         )
@@ -165,7 +165,7 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
             },
         }
 
-        await axios.post(`${process.env.API_URL}/products/${productId}/reviews`, review, config)
+        await axios.post(`http://localhost:4000/api/products/${productId}/reviews`, review, config)
 
         dispatch({
             type: productConstants.PRODUCT_CREATE_REVIEW_SUCCESS,

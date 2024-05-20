@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { createProductReview, listProductDetails } from '../actions/ProductActions';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/ProductConstant';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
 import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
 import Rating from '../components/Rating';
 
-const ProductPage = ({ history, match }) => {
+const ProductPage = ({ history }) => {
+    const { id } = useParams();
+
     const [qty, setQty] = useState(1);
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
@@ -35,22 +37,26 @@ const ProductPage = ({ history, match }) => {
         setComment('')
         dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-    dispatch(listProductDetails(match.params.id))
-    }, [dispatch, match, successProductReview])
+    if(!product || !product.data || !product.data.reviews || product.data.reviews === 0 ) {
+        dispatch(listProductDetails(id))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, id, successProductReview])
 
     const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
+    history.push(`/cart/${id}?qty=${qty}`)
     }
 
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(
-            createProductReview(match.params.id, {
+            createProductReview(id, {
             rating,
             comment,
             })
         )
     }
+    console.log(product);
 
     return (
         <>
